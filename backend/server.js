@@ -102,34 +102,10 @@ app.get('/api/medicines/qr', async (req, res, next) => {
   } catch (error) { next(error); }
 });
 
-app.get('/api/user/:id', async (req, res, next) => {
-  const userId = Number(req.params.id);
-  if (!Number.isSafeInteger(userId) || userId < 1) return res.status(400).json({ error: 'ID de usuário inválido.' });
-  try {
-    const [rows] = await pool.execute(
-      'SELECT id, username, score, streak, created_at FROM users WHERE id = ?', [userId]
-    );
-    if (!rows.length) return res.status(404).json({ error: 'Usuário não encontrado.' });
-    res.json(rows[0]);
-  } catch (error) { next(error); }
-});
-
-app.post('/api/user/score', async (req, res, next) => {
-  const { userId, points } = req.body || {};
-  if (!Number.isSafeInteger(userId) || userId < 1 || !Number.isSafeInteger(points) || points < 0 || points > 100000) {
-    return res.status(400).json({ error: 'Informe userId válido e points inteiro entre 0 e 100000.' });
-  }
-  try {
-    const [result] = await pool.execute(
-      'UPDATE users SET score = score + ?, streak = streak + 1 WHERE id = ?', [points, userId]
-    );
-    if (result.affectedRows === 0) return res.status(404).json({ error: 'Usuário não encontrado.' });
-    const [rows] = await pool.execute(
-      'SELECT id, username, score, streak, created_at FROM users WHERE id = ?', [userId]
-    );
-    res.json(rows[0]);
-  } catch (error) { next(error); }
-});
+// Disabled until per-user authentication and authorization are implemented.
+// A shared API key would not establish user ownership and is not sufficient.
+app.get('/api/user/:id', (_req, res) => res.status(503).json({ error: 'Recurso de usuário indisponível: autenticação ainda não implementada.' }));
+app.post('/api/user/score', (_req, res) => res.status(503).json({ error: 'Pontuação indisponível: autenticação ainda não implementada.' }));
 
 function calculateWithPython(payload, callback) {
   const scriptPath = path.resolve(__dirname, '../python-engine/calculator.py');
