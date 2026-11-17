@@ -50,8 +50,7 @@ Aplicação de estudo com frontend estático, API REST em Node.js/Express, MySQL
 - `GET /api/medicines/stats` — totais do catálogo e horário da última importação
 - `GET /api/medicines/search?q=paracetamol&limit=20` — pesquisa o catálogo importado da Anvisa
 - `GET /api/medicines/qr?code=...` — consulta código de QR/código de barras previamente validado em `medicine_barcodes`
-- `GET /api/user/:id` — pontuação e sequência do usuário
-- `POST /api/user/score` — soma pontos; JSON: `{"userId":1,"points":10}`
+- `GET /api/user/:id` e `POST /api/user/score` — temporariamente desativados (HTTP 503) para proteger dados e pontuações. Para reativá-los com segurança, é necessário implementar autenticação individual, controle de acesso por usuário e proteção contra abuso.
 - `POST /api/calculate-infusion` — calcula vazão; JSON com `dose` (mcg/kg/min), `weight` (kg), `drug_mg` (mg) e `volume_ml` (mL), todos maiores que zero
 
 ## Execução rápida com Docker
