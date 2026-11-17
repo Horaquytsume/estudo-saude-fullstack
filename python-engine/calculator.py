@@ -26,7 +26,11 @@ def calculate_infusion(data):
     volume_ml = positive_number(data, "volume_ml")  # mL
 
     concentration_mcg_ml = (drug_mg * 1000) / volume_ml
+    if not math.isfinite(concentration_mcg_ml) or concentration_mcg_ml <= 0:
+        raise ValueError("Concentração fora dos limites numéricos suportados.")
     infusion_rate_ml_h = (dose * weight * 60) / concentration_mcg_ml
+    if not math.isfinite(infusion_rate_ml_h) or infusion_rate_ml_h <= 0:
+        raise ValueError("Vazão fora dos limites numéricos suportados.")
     return {
         "status": "success",
         "infusion_rate_ml_h": round(infusion_rate_ml_h, 2),
