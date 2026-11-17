@@ -72,3 +72,8 @@ MySQL guarda os dados em volume persistente `mysql_data`. A primeira inicializa�
 ## Hospedagem
 
 O GitHub pode armazenar o código e publicar o frontend estático via GitHub Pages; ele **não executa** a API Node nem o MySQL. O frontend hospedado deve apontar para uma API Node pública em HTTPS, e `CORS_ORIGIN` deve incluir o domínio exato dessa página. Para que todos os recursos funcionem publicamente, publique API e banco em serviços próprios, configure as variáveis secretas e permita no CORS apenas o domínio do frontend. Nunca envie `.env`, senhas ou dados pessoais para o repositório.
+
+
+## Testes automáticos
+
+A CI testa a calculadora didática e verifica a sintaxe da API. Isso não cobre integração com MySQL, execução da interface, validação clínica nem testes de segurança; não use a calculadora para tratamento.
